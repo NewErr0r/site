@@ -1,0 +1,30 @@
+stages:
+  - build
+  - deploy
+  - destroy
+
+image: docker
+services:
+  - docker:dind 
+
+build:
+  stage: build
+  script:
+    - docker build . -t site
+    - docker images
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose up -d
+    - docker ps
+
+destroy:
+  stage: destroy
+  when: manual
+  script:
+    - docker-compose stop
+    - docker rm site
+    - docker rmi site
+    - docker ps -a 
+    - docker images
