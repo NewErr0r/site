@@ -1,0 +1,8 @@
+version: "3.3"
+
+services:
+  pig:
+    image: site
+    container_name: 'site'
+    ports:
+      - "8080:80"
